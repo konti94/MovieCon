@@ -1,14 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
+@import '/node_modules/react-multi-carousel/lib/styles.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
+    background: linear-gradient(to right, #434343 0%, black 100%);
+    color: white;
+    /* background: rgb(226, 27, 27);
+    background: linear-gradient(45deg, rgba(226, 27, 27, 1) 0%, rgba(0, 0, 0, 1) 100%); */
     display: flex;
     font-family: 'Open-Sans', sans-serif;
+    height: 100dvh;
     margin: 0;
     min-height: 100vh;
     min-width: 320px;
     padding: 0;
+    width: 100vw;
+}
+
+/* styles.css or your component's CSS */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+.react-multi-carousel-item {
+    @layer 3-xl:w-1/6 !important;
+}
+
+.container {
+    max-width: 100% !important;
 }

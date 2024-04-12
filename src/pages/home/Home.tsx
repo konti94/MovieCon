@@ -25,11 +25,10 @@ const Home: React.FC = () => {
     const [topRatedTVs, setTopRatedTVs] = useState<TVShow[]>([]);
     const [loading, setLoading] = useState(true);
 
-    // 6c40da7eadea178da08e598b199c5e5b
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = '6c40da7eadea178da08e598b199c5e5b';
+                const apiKey = import.meta.env.VITE_TMDB_API_KEY;
                 const baseUrl = 'https://api.themoviedb.org/3';
 
                 const [

@@ -33,8 +33,8 @@ const CustomCarousel: React.FC<{ movies: Movie[] | null; tvShows: TVShow[] | nul
             slidesToSlide={1}
             swipeable
         >
-            {movies && movies.map((movie) => <Card movie={movie} tvShow={null} />)}
-            {tvShows && tvShows.map((show) => <Card movie={null} tvShow={show} />)}
+            {movies && movies.map((movie) => <Card key={movie?.id} movie={movie} tvShow={null} />)}
+            {tvShows && tvShows.map((show) => <Card key={show?.id} movie={null} tvShow={show} />)}
         </Carousel>
     );
 };

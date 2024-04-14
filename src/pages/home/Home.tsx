@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Carousel from 'react-multi-carousel';
-
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string;
-}
-
-interface TVShow {
-    id: number;
-    name: string;
-    poster_path: string;
-}
+import { Movie, TVShow } from '../../types';
+import CustomCarousel from '../../components/carousel/Carousel';
 
 const Home: React.FC = () => {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
@@ -68,132 +57,6 @@ const Home: React.FC = () => {
         fetchData();
     }, []);
 
-    const renderMovieCarousel = (movies: Movie[]) => {
-        const responsive = {
-            superLargeDesktop: {
-                breakpoint: { max: 3000, min: 1920 },
-                items: 6,
-                slidesToSlide: 6,
-            },
-            desktop: {
-                breakpoint: { max: 1920, min: 1024 },
-                items: 4,
-                slidesToSlide: 4,
-            },
-            tablet: {
-                breakpoint: { max: 1024, min: 464 },
-                items: 2,
-                slidesToSlide: 2,
-            },
-            mobile: {
-                breakpoint: { max: 464, min: 0 },
-                items: 1,
-                slidesToSlide: 1,
-            },
-        };
-
-        return (
-            <Carousel
-                additionalTransfrom={0}
-                arrows
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className=""
-                containerClass="container"
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite={false}
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                pauseOnHover
-                renderArrowsWhenDisabled={false}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                responsive={responsive}
-                rewind={false}
-                rewindWithAnimation={false}
-                rtl={false}
-                shouldResetAutoplay
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-            >
-                {movies.map((movie) => (
-                    <div key={movie.id} className="mx-2">
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-                        <h3>{movie.title}</h3>
-                    </div>
-                ))}
-            </Carousel>
-        );
-    };
-
-    const renderTVShowCarousel = (tvShows: TVShow[]) => {
-        const responsive = {
-            superLargeDesktop: {
-                breakpoint: { max: 3000, min: 1920 },
-                items: 6,
-                slidesToSlide: 6,
-            },
-            desktop: {
-                breakpoint: { max: 1920, min: 1024 },
-                items: 4,
-                slidesToSlide: 4,
-            },
-            tablet: {
-                breakpoint: { max: 1024, min: 464 },
-                items: 2,
-                slidesToSlide: 2,
-            },
-            mobile: {
-                breakpoint: { max: 464, min: 0 },
-                items: 1,
-                slidesToSlide: 1,
-            },
-        };
-
-        return (
-            <Carousel
-                additionalTransfrom={0}
-                arrows
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className=""
-                containerClass="container"
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite={false}
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                pauseOnHover
-                renderArrowsWhenDisabled={false}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                responsive={responsive}
-                rewind={false}
-                rewindWithAnimation={false}
-                rtl={false}
-                shouldResetAutoplay
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-            >
-                {tvShows.map((show) => (
-                    <div key={show.id}>
-                        <img src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} alt={show.name} />
-                        <h3>{show.name}</h3>
-                    </div>
-                ))}
-            </Carousel>
-        );
-    };
-
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -201,28 +64,28 @@ const Home: React.FC = () => {
     return (
         <section>
             <h2 className="mb-4 text-2xl">Popular Movies</h2>
-            <div className="mb-8">{renderMovieCarousel(popularMovies)}</div>
+            <div className="mb-8">{<CustomCarousel movies={popularMovies} tvShows={null} />}</div>
 
             <h2 className="mb-4 text-2xl">Top Rated Movies</h2>
-            <div className="mb-8">{renderMovieCarousel(topRatedMovies)}</div>
+            <div className="mb-8">{<CustomCarousel movies={topRatedMovies} tvShows={null} />}</div>
 
             <h2 className="mb-4 text-2xl">Upcoming Movies</h2>
-            <div className="mb-8">{renderMovieCarousel(upcomingMovies)}</div>
+            <div className="mb-8">{<CustomCarousel movies={upcomingMovies} tvShows={null} />}</div>
 
             <h2 className="mb-4 text-2xl">Trending Movies</h2>
-            <div className="mb-8">{renderMovieCarousel(trendingMovies)}</div>
+            <div className="mb-8">{<CustomCarousel movies={trendingMovies} tvShows={null} />}</div>
 
             <h2 className="mb-4 text-2xl">Trending TV Shows</h2>
-            <div className="mb-8">{renderTVShowCarousel(trendingTVs)}</div>
+            <div className="mb-8">{<CustomCarousel movies={null} tvShows={trendingTVs} />}</div>
 
             <h2 className="mb-4 text-2xl">TV Shows On The Air</h2>
-            <div className="mb-8">{renderTVShowCarousel(onTheAirTVs)}</div>
+            <div className="mb-8">{<CustomCarousel movies={null} tvShows={onTheAirTVs} />}</div>
 
             <h2 className="mb-4 text-2xl">Popular TV Shows</h2>
-            <div className="mb-8">{renderTVShowCarousel(popularTVs)}</div>
+            <div className="mb-8">{<CustomCarousel movies={null} tvShows={popularTVs} />}</div>
 
             <h2 className="mb-4 text-2xl">Top Rated TV Shows</h2>
-            <div className="mb-8">{renderTVShowCarousel(topRatedTVs)}</div>
+            <div className="mb-8">{<CustomCarousel movies={null} tvShows={topRatedTVs} />}</div>
         </section>
     );
 };

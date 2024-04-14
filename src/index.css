@@ -8,8 +8,6 @@
 body {
     background: linear-gradient(to right, #434343 0%, black 100%);
     color: white;
-    /* background: rgb(226, 27, 27);
-    background: linear-gradient(45deg, rgba(226, 27, 27, 1) 0%, rgba(0, 0, 0, 1) 100%); */
     display: flex;
     font-family: 'Open-Sans', sans-serif;
     height: 100dvh;
@@ -20,21 +18,24 @@ body {
     width: 100vw;
 }
 
-/* styles.css or your component's CSS */
+.hamburger-menu {
+    background: linear-gradient(to right, #434343 0%, black 100%);
+}
+
 .nav-link {
     position: relative;
     transition: all 0.3s ease-in-out;
 }
 
 .nav-link::before {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
     background-color: white;
+    bottom: -2px;
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
     transition: width 0.3s ease-in-out;
+    width: 0;
 }
 
 .nav-link:hover::before {
@@ -47,6 +48,7 @@ body {
 
 .react-multiple-carousel__arrow {
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 
 .react-multiple-carousel__arrow--left {

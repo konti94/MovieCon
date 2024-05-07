@@ -5,16 +5,18 @@ import Home from './pages/home/Home';
 import Popular from './pages/popular/Popular';
 import TVShows from './pages/tv-shows/TVShows';
 import Watchlist from './pages/watchlist/Watchlist';
+import Login from './pages/auth/Login';
 
-function App() {
+const App: React.FC = () => {
     return (
         <>
             <Router>
-                <div>
+                <div className="relative h-screen w-screen overflow-auto">
                     <Navigation />
-                    <div className="w-screen px-12 py-4">
+                    <div className="w-full px-12 py-4">
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
                             <Route path="/films" element={<Films />} />
                             <Route path="/tv-shows" element={<TVShows />} />
                             <Route path="/watchlist" element={<Watchlist />} />
@@ -25,6 +27,6 @@ function App() {
             </Router>
         </>
     );
-}
+};
 
 export default App;

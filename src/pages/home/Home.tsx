@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Movie, TVShow } from '../../types';
 import CustomCarousel from '../../components/carousel/Carousel';
+import Overslide from '../../components/overslide/Overslide';
 
 const Home: React.FC = () => {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
@@ -13,6 +14,10 @@ const Home: React.FC = () => {
     const [popularTVs, setPopularTVs] = useState<TVShow[]>([]);
     const [topRatedTVs, setTopRatedTVs] = useState<TVShow[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isOverslideOpen, setIsOverslideOpen] = useState(false);
+    const [actualItem, setActualItem] = useState<Movie | TVShow | null>(null);
+
+    // console.log(popularMovies);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,31 +67,106 @@ const Home: React.FC = () => {
     }
 
     return (
-        <section>
-            <h2 className="mb-4 text-2xl">Popular Movies</h2>
-            <div className="mb-8">{<CustomCarousel movies={popularMovies} tvShows={null} />}</div>
+        <>
+            <section>
+                <h2 className="mb-4 text-2xl">Popular Movies</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={popularMovies}
+                            tvShows={null}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Top Rated Movies</h2>
-            <div className="mb-8">{<CustomCarousel movies={topRatedMovies} tvShows={null} />}</div>
+                <h2 className="mb-4 text-2xl">Top Rated Movies</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={topRatedMovies}
+                            tvShows={null}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Upcoming Movies</h2>
-            <div className="mb-8">{<CustomCarousel movies={upcomingMovies} tvShows={null} />}</div>
+                <h2 className="mb-4 text-2xl">Upcoming Movies</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={upcomingMovies}
+                            tvShows={null}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Trending Movies</h2>
-            <div className="mb-8">{<CustomCarousel movies={trendingMovies} tvShows={null} />}</div>
+                <h2 className="mb-4 text-2xl">Trending Movies</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={trendingMovies}
+                            tvShows={null}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Trending TV Shows</h2>
-            <div className="mb-8">{<CustomCarousel movies={null} tvShows={trendingTVs} />}</div>
+                <h2 className="mb-4 text-2xl">Trending TV Shows</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={null}
+                            tvShows={trendingTVs}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">TV Shows On The Air</h2>
-            <div className="mb-8">{<CustomCarousel movies={null} tvShows={onTheAirTVs} />}</div>
+                <h2 className="mb-4 text-2xl">TV Shows On The Air</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={null}
+                            tvShows={onTheAirTVs}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Popular TV Shows</h2>
-            <div className="mb-8">{<CustomCarousel movies={null} tvShows={popularTVs} />}</div>
+                <h2 className="mb-4 text-2xl">Popular TV Shows</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={null}
+                            tvShows={popularTVs}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
 
-            <h2 className="mb-4 text-2xl">Top Rated TV Shows</h2>
-            <div className="mb-8">{<CustomCarousel movies={null} tvShows={topRatedTVs} />}</div>
-        </section>
+                <h2 className="mb-4 text-2xl">Top Rated TV Shows</h2>
+                <div className="mb-8">
+                    {
+                        <CustomCarousel
+                            movies={null}
+                            tvShows={topRatedTVs}
+                            setIsOverslideOpen={setIsOverslideOpen}
+                            setActualItem={setActualItem}
+                        />
+                    }
+                </div>
+            </section>
+            <Overslide isOpen={isOverslideOpen} setIsOpen={setIsOverslideOpen} actualItem={actualItem} />
+        </>
     );
 };
 

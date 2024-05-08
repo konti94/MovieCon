@@ -6,6 +6,8 @@ import Popular from './pages/popular/Popular';
 import TVShows from './pages/tv-shows/TVShows';
 import Watchlist from './pages/watchlist/Watchlist';
 import Login from './pages/auth/Login';
+import Overslide from './components/overslide/Overslide';
+import Footer from './components/footer/Footer';
 
 const App: React.FC = () => {
     return (
@@ -23,6 +25,8 @@ const App: React.FC = () => {
                             <Route path="/popular" element={<Popular />} />
                         </Routes>
                     </div>
+                    <Overslide />
+                    <Footer />
                 </div>
             </Router>
         </>

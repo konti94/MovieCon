@@ -63,3 +63,7 @@ body {
 .container {
     max-width: 100% !important;
 }
+
+.footer {
+    background: linear-gradient(to left, #434343 0%, black 100%);
+}

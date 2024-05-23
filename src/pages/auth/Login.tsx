@@ -90,6 +90,7 @@ const Login: React.FC = () => {
 
                 // Redirect to home page
                 navigate('/');
+                window.location.reload();
             } catch (error) {
                 console.error('Error creating session:', error);
                 // Handle error, show error message to user, etc.

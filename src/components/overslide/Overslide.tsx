@@ -7,8 +7,6 @@ const Overslide: React.FC<{
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     actualItem: Movie | TVShow | null;
 }> = ({ isOpen, setIsOpen, actualItem }) => {
-    console.log(actualItem);
-
     const isMovie = (item: any): item is Movie => {
         return item?.hasOwnProperty('title') && item?.hasOwnProperty('release_date');
     };

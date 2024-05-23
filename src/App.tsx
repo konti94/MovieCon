@@ -12,7 +12,7 @@ const App: React.FC = () => {
     return (
         <>
             <Router>
-                <div className="relative h-screen w-screen overflow-auto">
+                <div className="relative h-screen w-screen overflow-x-hidden">
                     <Navigation />
                     <div className="w-full px-12 py-4">
                         <Routes>
@@ -21,7 +21,6 @@ const App: React.FC = () => {
                             <Route path="/films" element={<Films />} />
                             <Route path="/tv-shows" element={<TVShows />} />
                             <Route path="/watchlist" element={<Watchlist />} />
-                            <Route path="/popular" element={<Popular />} />
                         </Routes>
                     </div>
                     <Footer />

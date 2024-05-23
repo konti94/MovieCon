@@ -64,6 +64,10 @@ body {
     max-width: 100% !important;
 }
 
+.list > button {
+    margin: 0;
+}
+
 .footer {
     background: linear-gradient(to left, #434343 0%, black 100%);
 }

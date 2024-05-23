@@ -17,8 +17,6 @@ const Home: React.FC = () => {
     const [isOverslideOpen, setIsOverslideOpen] = useState(false);
     const [actualItem, setActualItem] = useState<Movie | TVShow | null>(null);
 
-    // console.log(popularMovies);
-
     useEffect(() => {
         const fetchData = async () => {
             try {

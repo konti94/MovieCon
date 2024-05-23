@@ -54,6 +54,7 @@ const Navigation: React.FC = () => {
                 localStorage.removeItem('session_id');
                 // Redirect to home page or login page
                 navigate('/login');
+                window.location.reload();
             }
         } catch (error) {
             console.error('Error logging out:', error);
@@ -98,11 +99,6 @@ const Navigation: React.FC = () => {
                             </Link>
                         </li>
                     )}
-                    <li>
-                        <Link to="/popular" className="nav-link">
-                            Popular
-                        </Link>
-                    </li>
                 </ul>
 
                 <div className="hidden lg:block">
@@ -191,11 +187,6 @@ const Navigation: React.FC = () => {
                             <li>
                                 <Link to="/watchlist" className="nav-link text-white" onClick={toggleMenu}>
                                     Watchlist
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/popular" className="nav-link text-white" onClick={toggleMenu}>
-                                    Popular
                                 </Link>
                             </li>
                         </ul>

@@ -1,8 +1,7 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Movie, TVShow } from '../../types';
 import axios from 'axios';
-import { LoggedContext } from '../../Contexts';
 
 const Overslide: React.FC<{
     isOpen: boolean;

@@ -3,13 +3,15 @@ import axios from 'axios';
 import { Movie, TVShow } from '../../types';
 import Overslide from '../../components/overslide/Overslide';
 import List from '../../components/list/List';
+import Pagination from '../../components/pagination/Pagination';
 
 const TVShows: React.FC = () => {
     const [shows, setShows] = useState<TVShow[]>([]);
     const [loading, setLoading] = useState(true);
     const [isOverslideOpen, setIsOverslideOpen] = useState(false);
     const [actualItem, setActualItem] = useState<Movie | TVShow | null>(null);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const totalPages = 99;
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -17,7 +19,7 @@ const TVShows: React.FC = () => {
                 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
                 const baseUrl = 'https://api.themoviedb.org/3';
                 const response = await axios.get(
-                    `${baseUrl}/tv/top_rated?api_key=${apiKey}&language=en-US&page=${page}`,
+                    `${baseUrl}/tv/top_rated?api_key=${apiKey}&language=en-US&page=${currentPage}`,
                 );
                 setShows(response.data.results);
                 setLoading(false);
@@ -28,7 +30,11 @@ const TVShows: React.FC = () => {
         };
 
         fetchMovies();
-    }, []);
+    }, [currentPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -48,6 +54,7 @@ const TVShows: React.FC = () => {
                 ) : (
                     <p>No TV series found</p>
                 )}
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
             </section>
             <Overslide
                 isOpen={isOverslideOpen}

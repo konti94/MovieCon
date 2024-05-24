@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Movie, TVShow } from '../../types';
 import axios from 'axios';
+import { LoggedContext } from '../../Contexts';
 
 const Overslide: React.FC<{
     isOpen: boolean;
@@ -12,9 +13,14 @@ const Overslide: React.FC<{
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const sessionId = localStorage.getItem('session_id');
     const [accountId, setAccountId] = useState<string | null>(null);
+    const isLoggedIn = localStorage.getItem('is_logged_in');
 
     useEffect(() => {
         const fetchAccountId = async () => {
+            if (!isLoggedIn) {
+                return;
+            }
+
             if (!sessionId || !apiKey) {
                 console.error('Missing session ID or API key');
                 return;
@@ -177,7 +183,7 @@ const Overslide: React.FC<{
                                                     : actualItem?.first_air_date}
                                             </p>
                                             <p className="mb-8">{actualItem?.overview}</p>
-                                            {!isWatchlist && (
+                                            {isLoggedIn && !isWatchlist && (
                                                 <div className="flex items-center justify-center">
                                                     <button
                                                         type="button"

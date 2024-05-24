@@ -87,6 +87,7 @@ const Login: React.FC = () => {
 
                 // Save user session data to local storage or cookies
                 localStorage.setItem('session_id', sessionData.session_id);
+                localStorage.setItem('is_logged_in', 'true');
 
                 // Redirect to home page
                 navigate('/');

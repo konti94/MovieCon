@@ -163,7 +163,12 @@ const Home: React.FC = () => {
                     }
                 </div>
             </section>
-            <Overslide isOpen={isOverslideOpen} setIsOpen={setIsOverslideOpen} actualItem={actualItem} />
+            <Overslide
+                isOpen={isOverslideOpen}
+                setIsOpen={setIsOverslideOpen}
+                actualItem={actualItem}
+                isWatchlist={false}
+            />
         </>
     );
 };

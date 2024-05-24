@@ -49,7 +49,12 @@ const Films: React.FC = () => {
                     <p>No movies found</p>
                 )}
             </section>
-            <Overslide isOpen={isOverslideOpen} setIsOpen={setIsOverslideOpen} actualItem={actualItem} />
+            <Overslide
+                isOpen={isOverslideOpen}
+                setIsOpen={setIsOverslideOpen}
+                actualItem={actualItem}
+                isWatchlist={false}
+            />
         </>
     );
 };

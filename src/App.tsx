@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/navigation/Navigation';
 import Films from './pages/films/Films';
 import Home from './pages/home/Home';
-import Popular from './pages/popular/Popular';
 import TVShows from './pages/tv-shows/TVShows';
 import Watchlist from './pages/watchlist/Watchlist';
 import Login from './pages/auth/Login';
@@ -12,9 +11,9 @@ const App: React.FC = () => {
     return (
         <>
             <Router>
-                <div className="relative h-screen w-screen overflow-x-hidden">
+                <div className="relative flex h-screen w-screen flex-col overflow-x-hidden">
                     <Navigation />
-                    <div className="w-full px-12 py-4">
+                    <div className="w-full flex-1 px-12 py-4">
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/login" element={<Login />} />

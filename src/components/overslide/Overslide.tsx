@@ -1,14 +1,82 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Movie, TVShow } from '../../types';
+import axios from 'axios';
 
 const Overslide: React.FC<{
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     actualItem: Movie | TVShow | null;
-}> = ({ isOpen, setIsOpen, actualItem }) => {
+    isWatchlist: boolean;
+}> = ({ isOpen, setIsOpen, actualItem, isWatchlist }) => {
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+    const sessionId = localStorage.getItem('session_id');
+    const [accountId, setAccountId] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchAccountId = async () => {
+            if (!sessionId || !apiKey) {
+                console.error('Missing session ID or API key');
+                return;
+            }
+
+            try {
+                const response = await axios.get(
+                    `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${sessionId}`,
+                );
+                setAccountId(response.data.id);
+                localStorage.setItem('account_id', response.data.id);
+            } catch (error) {
+                console.error('Error fetching account ID:', error);
+            }
+        };
+
+        fetchAccountId();
+    }, [sessionId, apiKey]);
+
     const isMovie = (item: any): item is Movie => {
         return item?.hasOwnProperty('title') && item?.hasOwnProperty('release_date');
+    };
+
+    const handleAddToWatchlist = async () => {
+        if (!actualItem || !sessionId || !accountId) {
+            alert('Missing session or account information.');
+            return;
+        }
+
+        try {
+            const movieStatusResponse = await axios.get(
+                `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies?api_key=${apiKey}&session_id=${sessionId}`,
+            );
+
+            const movieStatusData = movieStatusResponse.data.results;
+            const isMovieInWatchlist = movieStatusData.some((item: any) => item.id === actualItem.id);
+
+            const tvStatusResponse = await axios.get(
+                `https://api.themoviedb.org/3/account/${accountId}/watchlist/tv?api_key=${apiKey}&session_id=${sessionId}`,
+            );
+
+            const tvStatusData = tvStatusResponse.data.results;
+            const isTvInWatchlist = tvStatusData.some((item: any) => item.id === actualItem.id);
+
+            if (!isMovieInWatchlist || !isTvInWatchlist) {
+                await axios.post(
+                    `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${apiKey}&session_id=${sessionId}`,
+                    {
+                        media_type: isMovie(actualItem) ? 'movie' : 'tv',
+                        media_id: actualItem.id,
+                        watchlist: true,
+                    },
+                );
+            } else {
+                alert('Item is already in the watchlist.');
+            }
+        } catch (error) {
+            console.error('Error adding to watchlist:', error);
+            console.log('Failed to add item to watchlist.');
+        }
+
+        setIsOpen(false);
     };
 
     return (
@@ -108,7 +176,18 @@ const Overslide: React.FC<{
                                                     ? actualItem?.release_date
                                                     : actualItem?.first_air_date}
                                             </p>
-                                            <p>{actualItem?.overview}</p>
+                                            <p className="mb-8">{actualItem?.overview}</p>
+                                            {!isWatchlist && (
+                                                <div className="flex items-center justify-center">
+                                                    <button
+                                                        type="button"
+                                                        className="hover:border-mc-orange-dark hover:bg-mc-orange-dark rounded border border-mc-orange bg-mc-orange px-6 py-2 transition duration-500"
+                                                        onClick={handleAddToWatchlist}
+                                                    >
+                                                        Add to watchlist
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </DialogPanel>

@@ -49,7 +49,12 @@ const TVShows: React.FC = () => {
                     <p>No TV series found</p>
                 )}
             </section>
-            <Overslide isOpen={isOverslideOpen} setIsOpen={setIsOverslideOpen} actualItem={actualItem} />
+            <Overslide
+                isOpen={isOverslideOpen}
+                setIsOpen={setIsOverslideOpen}
+                actualItem={actualItem}
+                isWatchlist={false}
+            />
         </>
     );
 };

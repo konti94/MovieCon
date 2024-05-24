@@ -6,6 +6,7 @@ import TVShows from './pages/tv-shows/TVShows';
 import Watchlist from './pages/watchlist/Watchlist';
 import Login from './pages/auth/Login';
 import Footer from './components/footer/Footer';
+import Profile from './pages/user/Profile';
 
 const App: React.FC = () => {
     return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
                             <Route path="/films" element={<Films />} />
                             <Route path="/tv-shows" element={<TVShows />} />
                             <Route path="/watchlist" element={<Watchlist />} />
+                            <Route path="/profile" element={<Profile />} />
                         </Routes>
                     </div>
                     <Footer />

@@ -52,6 +52,7 @@ const Navigation: React.FC = () => {
                 });
                 // Remove session ID from local storage
                 localStorage.removeItem('session_id');
+                localStorage.removeItem('account_id');
                 // Redirect to home page or login page
                 navigate('/login');
                 window.location.reload();

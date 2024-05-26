@@ -1,11 +1,13 @@
 import { Movie, TVShow } from '../../types';
 
-const Card: React.FC<{
+interface CardProps {
     movie: Movie | null;
     tvShow: TVShow | null;
     setIsOverslideOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setActualItem: React.Dispatch<React.SetStateAction<Movie | TVShow | null>>;
-}> = ({ movie, tvShow, setIsOverslideOpen, setActualItem }) => {
+}
+
+const Card: React.FC<CardProps> = ({ movie, tvShow, setIsOverslideOpen, setActualItem }) => {
     const handleCardClick = (item: Movie | TVShow | null) => {
         setIsOverslideOpen(true);
         setActualItem(item);

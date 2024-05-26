@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiKey } from '../../constants';
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -13,8 +14,6 @@ const Login: React.FC = () => {
     });
 
     const navigate = useNavigate();
-
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -94,7 +93,6 @@ const Login: React.FC = () => {
                 window.location.reload();
             } catch (error) {
                 console.error('Error creating session:', error);
-                // Handle error, show error message to user, etc.
             }
         }
     };

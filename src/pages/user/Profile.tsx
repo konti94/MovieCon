@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { apiKey, baseUrl } from '../../constants';
 
 const Profile: React.FC = () => {
     const [userDetails, setUserDetails] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const sessionId = localStorage.getItem('session_id');
-    const baseUrl = 'https://api.themoviedb.org/3';
 
     useEffect(() => {
         const fetchUserDetails = async () => {

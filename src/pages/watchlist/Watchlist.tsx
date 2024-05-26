@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Movie, TVShow } from '../../types';
 import CustomCarousel from '../../components/carousel/Carousel';
 import Overslide from '../../components/overslide/Overslide';
+import { apiKey, baseUrl } from '../../constants';
 
 const Watchlist: React.FC = () => {
     const [movieWatchlist, setMovieWatchlist] = useState<Movie[]>([]);
@@ -10,10 +11,9 @@ const Watchlist: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [isOverslideOpen, setIsOverslideOpen] = useState(false);
     const [actualItem, setActualItem] = useState<Movie | TVShow | null>(null);
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
     const sessionId = localStorage.getItem('session_id');
     const accountId = localStorage.getItem('account_id');
-    const baseUrl = 'https://api.themoviedb.org/3';
 
     useEffect(() => {
         const fetchMovies = async () => {

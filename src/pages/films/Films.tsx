@@ -4,6 +4,7 @@ import { Movie, TVShow } from '../../types';
 import Overslide from '../../components/overslide/Overslide';
 import List from '../../components/list/List';
 import Pagination from '../../components/pagination/Pagination';
+import { apiKey, baseUrl } from '../../constants';
 
 const Films: React.FC = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -11,13 +12,12 @@ const Films: React.FC = () => {
     const [isOverslideOpen, setIsOverslideOpen] = useState(false);
     const [actualItem, setActualItem] = useState<Movie | TVShow | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    
     const totalPages = 500;
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-                const baseUrl = 'https://api.themoviedb.org/3';
                 const response = await axios.get(
                     `${baseUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`,
                 );

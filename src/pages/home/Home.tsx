@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Movie, TVShow } from '../../types';
 import CustomCarousel from '../../components/carousel/Carousel';
 import Overslide from '../../components/overslide/Overslide';
+import { apiKey, baseUrl } from '../../constants';
 
 const Home: React.FC = () => {
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
@@ -20,9 +21,6 @@ const Home: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-                const baseUrl = 'https://api.themoviedb.org/3';
-
                 const [
                     popularMoviesRes,
                     topRatedMoviesRes,

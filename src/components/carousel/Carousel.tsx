@@ -3,12 +3,14 @@ import { Movie, TVShow } from '../../types';
 import { responsive } from '../../constants';
 import Card from '../card/Card';
 
-const CustomCarousel: React.FC<{
+interface CustomCarouselProps {
     movies: Movie[] | null;
     tvShows: TVShow[] | null;
     setIsOverslideOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setActualItem: React.Dispatch<React.SetStateAction<Movie | TVShow | null>>;
-}> = ({ movies, tvShows, setIsOverslideOpen, setActualItem }) => {
+}
+
+const CustomCarousel: React.FC<CustomCarouselProps> = ({ movies, tvShows, setIsOverslideOpen, setActualItem }) => {
     return (
         <Carousel
             additionalTransfrom={0}

@@ -2,16 +2,19 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Movie, TVShow } from '../../types';
 import axios from 'axios';
+import { apiKey, baseUrl } from '../../constants';
 
-const Overslide: React.FC<{
+interface OverslideProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     actualItem: Movie | TVShow | null;
     isWatchlist: boolean;
-}> = ({ isOpen, setIsOpen, actualItem, isWatchlist }) => {
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-    const sessionId = localStorage.getItem('session_id');
+}
+
+const Overslide: React.FC<OverslideProps> = ({ isOpen, setIsOpen, actualItem, isWatchlist }) => {
     const [accountId, setAccountId] = useState<string | null>(null);
+
+    const sessionId = localStorage.getItem('session_id');
     const isLoggedIn = localStorage.getItem('is_logged_in');
 
     useEffect(() => {
@@ -27,8 +30,9 @@ const Overslide: React.FC<{
 
             try {
                 const response = await axios.get(
-                    `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${sessionId}`,
+                    `${baseUrl}/account?api_key=${apiKey}&session_id=${sessionId}`,
                 );
+
                 setAccountId(response.data.id);
                 localStorage.setItem('account_id', response.data.id);
             } catch (error) {
@@ -51,14 +55,14 @@ const Overslide: React.FC<{
 
         try {
             const movieStatusResponse = await axios.get(
-                `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies?api_key=${apiKey}&session_id=${sessionId}`,
+                `${baseUrl}/account/${accountId}/watchlist/movies?api_key=${apiKey}&session_id=${sessionId}`,
             );
 
             const movieStatusData = movieStatusResponse.data.results;
             const isMovieInWatchlist = movieStatusData.some((item: any) => item.id === actualItem.id);
 
             const tvStatusResponse = await axios.get(
-                `https://api.themoviedb.org/3/account/${accountId}/watchlist/tv?api_key=${apiKey}&session_id=${sessionId}`,
+                `${baseUrl}/account/${accountId}/watchlist/tv?api_key=${apiKey}&session_id=${sessionId}`,
             );
 
             const tvStatusData = tvStatusResponse.data.results;
@@ -66,7 +70,7 @@ const Overslide: React.FC<{
 
             if (!isMovieInWatchlist || !isTvInWatchlist) {
                 await axios.post(
-                    `https://api.themoviedb.org/3/account/${accountId}/watchlist?api_key=${apiKey}&session_id=${sessionId}`,
+                    `${baseUrl}/account/${accountId}/watchlist?api_key=${apiKey}&session_id=${sessionId}`,
                     {
                         media_type: isMovie(actualItem) ? 'movie' : 'tv',
                         media_id: actualItem.id,

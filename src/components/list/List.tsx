@@ -2,12 +2,14 @@ import React from 'react';
 import { Movie, TVShow } from '../../types';
 import Card from '../card/Card';
 
-const List: React.FC<{
+interface ListProps {
     type: string;
     items: Movie[] | TVShow[];
     setIsOverslideOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setActualItem: React.Dispatch<React.SetStateAction<Movie | TVShow | null>>;
-}> = ({ type, items, setIsOverslideOpen, setActualItem }) => {
+}
+
+const List: React.FC<ListProps> = ({ type, items, setIsOverslideOpen, setActualItem }) => {
     return (
         <div className="list mb-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             {type === 'movie'

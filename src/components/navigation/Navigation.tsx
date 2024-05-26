@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '/assets/logo.svg';
 import axios from 'axios';
+import { apiKey, baseUrl } from '../../constants';
 
 const Navigation: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isDropdownOpen, setIsDropwdownOpen] = useState(false);
     const [userDetails, setUserDetails] = useState<any>(null);
 
+    const sessionId = localStorage.getItem('session_id');
     const navigate = useNavigate();
-
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -24,11 +24,9 @@ const Navigation: React.FC = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const sessionId = localStorage.getItem('session_id');
-
                 if (sessionId) {
                     const response = await axios.get(
-                        `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${sessionId}`,
+                        `${baseUrl}/account?api_key=${apiKey}&session_id=${sessionId}`,
                     );
                     setUserDetails(response.data);
                 }
@@ -44,17 +42,16 @@ const Navigation: React.FC = () => {
         try {
             const sessionId = localStorage.getItem('session_id');
             if (sessionId) {
-                // Delete session using Axios
-                await axios.delete(`https://api.themoviedb.org/3/authentication/session?api_key=${apiKey}`, {
+                await axios.delete(`${baseUrl}/authentication/session?api_key=${apiKey}`, {
                     data: {
                         session_id: sessionId,
                     },
                 });
-                // Remove session ID from local storage
+
                 localStorage.removeItem('session_id');
                 localStorage.removeItem('account_id');
                 localStorage.removeItem('is_logged_in');
-                // Redirect to home page or login page
+
                 navigate('/login');
                 window.location.reload();
             }
@@ -105,7 +102,6 @@ const Navigation: React.FC = () => {
 
                 <div className="hidden lg:block">
                     {userDetails ? (
-                        // Display logged-in username
                         <div className="relative">
                             <button
                                 onClick={toggleUserDropdown}
@@ -141,7 +137,6 @@ const Navigation: React.FC = () => {
                             )}
                         </div>
                     ) : (
-                        // Display Login button if user is not logged in
                         <Link
                             to="/login"
                             className="rounded border border-mc-red bg-mc-red px-6 py-2 transition duration-500 hover:border-mc-red-dark hover:bg-mc-red-dark"
@@ -210,7 +205,6 @@ const Navigation: React.FC = () => {
                                     </button>
                                 </div>
                             ) : (
-                                // Display Login button if user is not logged in
                                 <Link
                                     to="/login"
                                     className="rounded border border-mc-red bg-mc-red px-6 py-2 transition duration-500 hover:border-mc-red-dark hover:bg-mc-red-dark"

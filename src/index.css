@@ -44,7 +44,7 @@ body {
 }
 
 .react-multi-carousel-item {
-    @layer 3-xl:w-1/6 !important;
+    @layer 3xl:w-1/6 !important;
 }
 
 .react-multiple-carousel__arrow {
